@@ -78,6 +78,10 @@
     font-weight: 800;
 }
 
+.login-form-input::-webkit-input-placeholder {
+    color: #c2c2c2 ;
+}
+
 @media screen and (max-width: 768px) {
     .login-form > h2 {
         font-size: 28px;

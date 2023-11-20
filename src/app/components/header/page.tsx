@@ -1,5 +1,6 @@
 import React from "react";
 import "./header.css";
+import Link from "next/link";
 
 const header: React.FC = () => {
   return (
@@ -26,7 +27,7 @@ const header: React.FC = () => {
           </svg>
         </div>
         <div className="header-buttons-container">
-          <button className="header-button-login">ENTRAR</button>
+          <button className="header-button-login"><Link href="/login">ENTRAR</Link></button>
           <button className="header-button-ajuda">?</button>
         </div>
       </div>

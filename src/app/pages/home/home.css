@@ -4,7 +4,7 @@
   max-width: 1300px;
   width: 100%;
   background-color: #fff;
-  padding: 40px 0;
+  padding: 40px 15px;
   gap: 95px;
   justify-content: center;
   border-radius: 30px;
@@ -108,4 +108,35 @@ input::placeholder {
     flex-direction: column;
     align-items: center;
   }
+}
+
+/* Ajustes para os erros de validação */
+.input-origem, .input-destino {
+  margin-bottom: 15px;
+}
+
+.error-message-home {
+  display: block; 
+  color: #ff0000; 
+  font-weight: bold;
+  font-size: 12px; 
+  margin-top: 4px;
+  margin-bottom: 10px; 
+}
+
+.inputs1-compra, .inputs2-compra, .inputs-ida-volta-container, .finalizar-busca-container {
+  position: relative; 
+  padding-bottom: 20px;
+}
+
+.error-message-home {
+  position: absolute; 
+  bottom: -10px; 
+  left: 5px; 
+  width: 100%; 
+  text-align: left; 
+}
+
+.origin-error, .destiny-error {
+  bottom: 77px;
 }
