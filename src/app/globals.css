@@ -19,3 +19,8 @@ body {}
     --background-end-rgb: 0, 0, 0;
   }
 }
+
+.error-message{
+  font-size: 12px;
+  color: #ff0000;
+}
