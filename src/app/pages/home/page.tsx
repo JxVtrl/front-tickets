@@ -21,6 +21,25 @@ const home: React.FC = () => {
                 priority={true}
                 />
             </div>
+            <div className='box-select-wrapper'>
+                <div className="box-select">
+                    <div className='inputs1-compra'>
+                        <input className='input-origem' type="text" placeholder='Origem'/>
+                        <div className='inputs-ida-volta-container'>
+                            <input className='input-ida' type="date" placeholder='Ida'/>
+                            <input className='input-volta' type="text"  placeholder='Volta'/>
+                        </div>
+                    </div>
+                    <div className='inputs2-compra'>
+                        <input className='input-destino'  type="text" placeholder='Destino'/>
+                        <div className='finalizar-busca-container'>
+                            <input className='input-passageiros' type="number" placeholder='Passageiros' />
+                            <button className='botao-limpar'>limpar busca</button>
+                            <button className='botao-buscar'>BUSCAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
   );
