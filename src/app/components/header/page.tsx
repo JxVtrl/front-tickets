@@ -1,8 +1,11 @@
 import React from "react";
 import "./header.css";
 import Link from "next/link";
+import { useApp } from "@/contexts/contextApi";
 
 const header: React.FC = () => {
+  const { user } = useApp();
+
   return (
     <section className="header-sec">
       <div className="header-container">
@@ -26,10 +29,29 @@ const header: React.FC = () => {
             />
           </svg>
         </div>
-        <div className="header-buttons-container">
-          <button className="header-button-login"><Link href="/login">ENTRAR</Link></button>
-          <button className="header-button-ajuda">?</button>
-        </div>
+        {!user ? (
+          <div className="header-buttons-container">
+            <button className="header-button-login">
+              <Link href="/login">ENTRAR</Link>
+            </button>
+            <button className="header-button-ajuda">?</button>
+          </div>
+        ) : (
+          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <div style={{ color: "#000" }}>
+              Bem-vindo <b>{user.name}</b> !
+            </div>
+            <button
+              className="header-button-login"
+              onClick={() => {
+                localStorage.removeItem("user");
+                window.location.href = "/login";
+              }}
+            >
+              Sair
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
