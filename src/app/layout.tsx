@@ -1,5 +1,9 @@
 import { AppProvider } from "@/contexts/contextApi";
 import "@/styles/globals.css";
+import "@/styles/home.css";
+import "@/styles/register.css";
+import "@/styles/login.css";
+
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 

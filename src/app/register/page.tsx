@@ -3,7 +3,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import Logo from "@/components/Logo";
-import "@/styles/register.css";
 import Link from "next/link";
 import axios from "axios";
 

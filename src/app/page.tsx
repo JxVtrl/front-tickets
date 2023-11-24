@@ -3,9 +3,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Header from "@/components/Header";
-import Banner from "../../public/banner-home.svg";
-import Image from "next/image";
-import "@/styles/home.css";
+import Banner from "@/components/Banner";
 
 interface FormValues {
   origem: string;
@@ -50,15 +48,7 @@ export default function Home() {
       <div>
         <Header />
         <section>
-          <div className="banner-container">
-            <Image
-              src={Banner}
-              alt="Banner principal da home"
-              width={1920}
-              height={600}
-              priority={true}
-            />
-          </div>
+          <Banner />
           <div className="box-select-wrapper">
             <form className="box-select" onSubmit={handleSubmit(onSubmit)}>
               <div className="inputs1-compra">
