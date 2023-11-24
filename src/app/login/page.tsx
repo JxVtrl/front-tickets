@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import axios from "axios";
+import "@/styles/login.css";
 
-import "./login.css";
 
 interface FormData {
   email: string;
