@@ -58,7 +58,6 @@ export const criar_rotas = () => {
 
     let rota: Rota = {
       id: i,
-      nome: `Rota ${i}`,
       origem,
       destino,
       data_ida: random_date(new Date(2021, 0, 1), new Date(2021, 11, 31)),

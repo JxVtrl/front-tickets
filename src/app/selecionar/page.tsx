@@ -1,9 +1,30 @@
-import React from 'react';
+"use client"
 
-// TELA DE SELECIONAR O ASSENTO
+import Selected from "@/components/Selected"
+import { useApp } from "@/contexts/contextApi"
+import { Rota } from "@/types"
+import React from "react"
 
-const Page: React.FC = () => {
-  return <div />;
+type Props = {
+  id: string | number
 }
 
-export default Page;
+const Page: React.FC<Props> = ({ id }) => {
+  const [route, setRoute] = React.useState<Rota | null>(null)
+  const { rotas } = useApp()
+
+  React.useEffect(() => {
+    const route = rotas.find((rota) => rota.id == id)
+    setRoute(route || null)
+  }, [id, rotas])
+
+  if (!route) return <div />
+
+  return (
+    <div>
+      <Selected />
+    </div>
+  )
+}
+
+export default Page

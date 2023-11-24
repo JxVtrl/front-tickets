@@ -13,7 +13,6 @@ export type Motorista = {
 
 export type Rota = {
     id: number,
-    nome: string,
     origem: string,
     destino: string,
     hora_ida: string,

@@ -15,6 +15,8 @@ interface ContextProps {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   rotas: Rota[];
+  selectedRoute: Rota | null;
+  setSelectedRoute: React.Dispatch<React.SetStateAction<Rota | null>>;
 }
 
 const AppContext = createContext<ContextProps>({} as ContextProps);
@@ -22,6 +24,7 @@ const AppContext = createContext<ContextProps>({} as ContextProps);
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [rotas, setRotas] = useState<Rota[]>([]);
+  const [selectedRoute, setSelectedRoute] = useState<Rota | null>(null);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -42,7 +45,12 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const value = { user, setUser,rotas };
+  const value = {
+    user, setUser, rotas, 
+    selectedRoute, setSelectedRoute
+
+
+  };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

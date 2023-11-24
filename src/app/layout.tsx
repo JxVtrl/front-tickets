@@ -8,6 +8,7 @@ import "@/styles/globals.css"
 import "@/styles/home.css"
 import "@/styles/register.css"
 import "@/styles/login.css"
+import SeatModal from "@/components/SeatModal"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <AppProvider>
         <body className={`${inter.className} ${montserrat.className}`}>
+          <SeatModal/>
           <Header />
           {children}
           <Footer />

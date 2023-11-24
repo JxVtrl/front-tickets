@@ -1,6 +1,7 @@
 "use client"
 import React from "react"
 import { useApp } from "@/contexts/contextApi"
+import Link from "next/link"
 
 const TripList: React.FC = () => {
   const { rotas } = useApp()
@@ -12,20 +13,24 @@ const TripList: React.FC = () => {
       <div className="w-full flex-col align-center justify-center m-auto bg-white rounded-md shadow-md p-4">
         {rotas.map((rota) => {
           return (
-            <div
-              className="flex justify-between items-center w-full  bg-white shadow-md p-4 my-4"
+            <Link
+              href={{
+                pathname: `/selecionar`,
+                query: { id: rota.id },
+              }}
               key={rota.id}
             >
-              <div className="trip-info">
-                <h3>{rota.origem}</h3>
-                <h3>{rota.destino}</h3>
-                <p>{rota.data_ida}</p>
-                {/* <p>Passageiros: {rota.passageiros}</p> */}
+              <div className="flex justify-between items-center w-full  bg-white shadow-md p-4 my-4">
+                <div className="trip-info">
+                  <h3>{rota.origem}</h3>
+                  <h3>{rota.destino}</h3>
+                  <p>{rota.data_ida}</p>
+                </div>
+                <div className="trip-price">
+                  <p>R$ {rota.valor}</p>
+                </div>
               </div>
-              <div className="trip-price">
-                <p>R$ {rota.valor}</p>
-              </div>
-            </div>
+            </Link>
           )
         })}
       </div>
