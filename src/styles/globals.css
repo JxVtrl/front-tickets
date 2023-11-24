@@ -30,6 +30,24 @@ body {
   }
 }
 
+input {
+  max-width: 520px !important;
+  height: fit-content !important;
+  width: 100% !important;
+  padding: 10px 15px !important;
+  background-color: rgba(33, 58, 92, 0.63) !important;
+  border: 1px solid #213a5c !important;
+  color: #fff !important;
+  font-family: "Inter", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  border-radius: 20px !important;
+}
+
+input::placeholder {
+  color: #fff !important;
+}
+
 .error-message {
   font-size: 12px;
   color: #ff0000;

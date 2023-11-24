@@ -6,6 +6,8 @@ import { useApp } from "@/contexts/contextApi";
 
 const header: React.FC = () => {
   const { user } = useApp();
+  
+  if (window.location.pathname === "/login") return null;
 
   return (
     <section className="header-sec">
