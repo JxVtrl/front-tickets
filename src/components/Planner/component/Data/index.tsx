@@ -1,22 +1,17 @@
 import React from "react"
-import { useForm } from "react-hook-form"
 import { FormValues } from "../.."
 
 type Props = {
   value: FormValues
   setValue: React.Dispatch<React.SetStateAction<FormValues>>
+  errors: any
+  register: any
 }
 
-const Data: React.FC<Props> = ({ value, setValue }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<FormValues>()
-
+const Data: React.FC<Props> = ({ value, setValue, errors, register }) => {
   return (
-    <div className="wrapper-input">
+    <div className="wrapper-input flex flex-col relative h-[45px]">
       <input
-        className="input-ida"
         type="date"
         placeholder="Ida"
         {...register("data", {

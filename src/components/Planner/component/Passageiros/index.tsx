@@ -1,27 +1,29 @@
 import React from "react"
 import { FormValues } from "../.."
-import { useForm } from "react-hook-form"
 
 type Props = {
   value: FormValues
   setValue: React.Dispatch<React.SetStateAction<FormValues>>
+  register: any
+  errors: any
 }
 
-const Passageiros: React.FC<Props> = ({ setValue, value }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<FormValues>()
+const Passageiros: React.FC<Props> = ({
+  setValue,
+  value,
+  errors,
+  register,
+}) => {
   return (
-    <div className="wrapper-input">
+    <div className="flex flex-col relative">
       <input
-        className="input-passageiros"
+        className="input"
         type="number"
         placeholder="Passageiros"
         {...register("passageiros", {
           required: "Número de passageiros é obrigatório",
           valueAsNumber: true,
-          validate: (value) => value > 0 || "Selecione o número de passageiros",
+          validate: (value:any) => value.passageiros > 0 || "Selecione algum passageiro.",
         })}
         value={value.passageiros}
         onChange={(e) =>

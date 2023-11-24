@@ -1,20 +1,16 @@
 import React from "react"
-import { useForm } from "react-hook-form"
 import { FormValues } from "../.."
 type Props = {
   value: FormValues
   setValue: React.Dispatch<React.SetStateAction<FormValues>>
+  errors: any
+  register: any
 }
-const Origem: React.FC<Props> = ({ setValue, value }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<FormValues>()
-
+const Origem: React.FC<Props> = ({ setValue, value, errors, register }) => {
   return (
-    <div className="wrapper-input">
+    <div className="wrapper-input flex flex-col h-[65px] relative">
       <input
-        className="input-origem"
+        className="input"
         type="text"
         placeholder="Origem"
         {...register("origem", { required: "Origem é obrigatória" })}

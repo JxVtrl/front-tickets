@@ -1,21 +1,17 @@
 import React from "react"
 import { FormValues } from "../.."
-import { useForm } from "react-hook-form"
 
-// import { Container } from './styles';
 type Props = {
   value: FormValues
-  setValue: React.Dispatch<React.SetStateAction<FormValues>>
+    setValue: React.Dispatch<React.SetStateAction<FormValues>>
+    register:any
+  errors:any
 }
-const Destino: React.FC<Props> = ({ setValue, value }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<FormValues>()
+const Destino: React.FC<Props> = ({ setValue, value,errors,register }) => {
   return (
-    <div className="wrapper-input">
+    <div className="flex relative h-[65px]">
       <input
-        className="input-destino"
+        className="input"
         type="text"
         placeholder="Destino"
         {...register("destino", {

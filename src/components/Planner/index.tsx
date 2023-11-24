@@ -8,7 +8,6 @@ import Data from "./component/Data"
 import Destino from "./component/Destino"
 import Passageiros from "./component/Passageiros"
 import Limpar from "./component/Limpar"
-import Buscar from "./component/Buscar"
 
 export interface FormValues {
   origem: string
@@ -29,6 +28,7 @@ const Planner: React.FC = () => {
   const {
     handleSubmit,
     formState: { errors },
+    register,
   } = useForm<FormValues>()
 
   // Função para enviar os dados do formulário
@@ -42,10 +42,10 @@ const Planner: React.FC = () => {
     )
 
     // Se não existir, mostrar mensagem de erro
-    if (!rotaEncontrada) {
-      alert("Não foi possível encontrar uma rota com os dados informados")
-      return
-    }
+    // if (!rotaEncontrada) {
+    //   alert("Não foi possível encontrar uma rota com os dados informados")
+    //   return
+    // }
   }
 
   // Função para limpar todos os campos
@@ -59,19 +59,46 @@ const Planner: React.FC = () => {
   }
   return (
     <div className="box-select-wrapper mx-5">
-      <form className="planner-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="input-block">
-          <Origem value={formData} setValue={setFormData}/>
-          <Data value={formData} setValue={setFormData} />
+      <form
+        className="flex w-fit bg-white px-[15px] py-[24px] gap-[12px] justify-center rounded-[12px]"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="flex flex-col gap-[8px]">
+          <Origem
+            value={formData}
+            setValue={setFormData}
+            errors={errors}
+            register={register}
+          />
+          <Data
+            value={formData}
+            setValue={setFormData}
+            errors={errors}
+            register={register}
+          />
         </div>
 
-        <div className="input-block">
-          <Destino value={formData} setValue={setFormData} />
+        <div className="flex flex-col gap-[8px]">
+          <Destino
+            value={formData}
+            setValue={setFormData}
+            errors={errors}
+            register={register}
+          />
 
           <div className="finalizar-busca-container">
-            <Passageiros value={formData} setValue={setFormData} />
-            <Limpar limparCampos={limparCampos} />
-            <Buscar/>
+            <Passageiros
+              value={formData}
+              setValue={setFormData}
+              errors={errors}
+              register={register}
+            />
+            <div className="flex flex-col-reverse">
+              <Limpar limparCampos={limparCampos} />
+              <button type="submit" className="botao-buscar">
+                BUSCAR
+              </button>
+            </div>
           </div>
         </div>
       </form>
