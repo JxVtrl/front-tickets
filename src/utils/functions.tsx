@@ -41,6 +41,10 @@ export const gerarAssentos = () => {
   return assentos
 }
 
+export const gerarValor = (min = 0, max = 1000) => {
+  return Math.floor(Math.random() * (max - min) + min)
+}
+
 export const criar_rotas = () => {
   let rotas: Rota[] = []
 
@@ -66,7 +70,7 @@ export const criar_rotas = () => {
         Math.random() * 60
       )}`,
       assentos: gerarAssentos(),
-      valor: Math.floor(Math.random() * 1000),
+      valor: gerarValor(),
       motorista: {
         email: randomUser.email,
         nome: randomUser.nome,
