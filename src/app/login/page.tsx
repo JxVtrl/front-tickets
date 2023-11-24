@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import Logo from "../components/logo/page";
+import Logo from "@/components/Logo";
 import Link from "next/link";
 import axios from "axios";
 
