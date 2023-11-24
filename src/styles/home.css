@@ -6,42 +6,33 @@
   object-fit: cover;
 }
 
-.box-select {
+.planner-form {
   display: flex;
-  max-width: 1300px;
-  width: 100%;
+  width: fit-content;
   background-color: #fff;
-  padding: 40px 15px;
+  padding: 24px 15px;
   gap: 12px;
   justify-content: center;
   border-radius: 30px;
   border: 1px solid #d9d9d9;
 }
-.inputs1-compra {
+
+
+.input-block {
+position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 10px;height: fit-content;
 }
-.input-origem,
-.input-destino {
-  max-width: 520px;
-  width: 100%;
-  padding: 10px 23px;
 
-  background-color: rgba(33, 58, 92, 0.63);
-  border: 1px solid #213a5c;
-  color: #fff;
-  font-family: "Inter", sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  border-radius: 20px;
-}
 input::placeholder {
   color: #fff !important;
 }
-.input-ida,
-.input-volta {
-  max-width: 250px;
+.input-origem,
+.input-destino {
+    max-width: 520px;
+height: fit-content;
+
   width: 100%;
   padding: 10px 15px;
   background-color: rgba(33, 58, 92, 0.63);
@@ -91,6 +82,7 @@ input::placeholder {
 .inputs-ida-volta-container {
   display: flex;
   gap: 10px;
+position: relative;
 }
 .inputs2-compra {
   display: flex;
@@ -117,38 +109,11 @@ input::placeholder {
   }
 }
 
-/* Ajustes para os erros de validação */
-.input-origem,
-.input-destino {
-  margin-bottom: 15px;
-}
-
 .error-message-home {
-  display: block;
   color: #ff0000;
   font-weight: bold;
   font-size: 12px;
-  margin-top: 4px;
-  margin-bottom: 10px;
+position: absolute;
 }
 
-.inputs1-compra,
-.inputs2-compra,
-.inputs-ida-volta-container,
-.finalizar-busca-container {
-  position: relative;
-  padding-bottom: 20px;
-}
 
-.error-message-home {
-  position: absolute;
-  bottom: -10px;
-  left: 5px;
-  width: 100%;
-  text-align: left;
-}
-
-.origin-error,
-.destiny-error {
-  bottom: 77px;
-}
