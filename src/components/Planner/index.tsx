@@ -43,7 +43,7 @@ const Planner: React.FC = () => {
     })
   }
   return (
-    <div className="box-select-wrapper">
+    <div className="box-select-wrapper mx-5">
       <form className="box-select" onSubmit={handleSubmit(onSubmit)}>
         <div className="inputs1-compra">
           <input

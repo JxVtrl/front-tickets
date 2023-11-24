@@ -5,7 +5,7 @@ export type Assento = {
 }
 
 export type Motorista = {
-    id: number,
+    id: string | number,
     nome: string,
     telefone: string,
     email: string,
@@ -16,8 +16,8 @@ export type Rota = {
     nome: string,
     origem: string,
     destino: string,
-    data: string,
-    hora: string,
+    hora_ida: string,
+    data_ida: string,
     data_chegada: string,
     hora_chegada: string,
     assentos: Assento[],
