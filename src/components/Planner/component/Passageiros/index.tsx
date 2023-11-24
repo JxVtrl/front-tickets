@@ -15,7 +15,7 @@ const Passageiros: React.FC<Props> = ({
   register,
 }) => {
   return (
-    <div className="flex flex-col relative">
+    <div className="flex flex-col relative h-[65px]">
       <input
         className="input"
         type="number"

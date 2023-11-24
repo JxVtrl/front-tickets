@@ -10,8 +10,9 @@ type Props = {
 
 const Data: React.FC<Props> = ({ value, setValue, errors, register }) => {
   return (
-    <div className="wrapper-input flex flex-col relative h-[45px]">
+    <div className="wrapper-input flex flex-col relative h-[65px]">
       <input
+        className="input"
         type="date"
         placeholder="Ida"
         {...register("data", {
