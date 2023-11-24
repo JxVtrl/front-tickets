@@ -1,22 +1,22 @@
 "use client"
 
+import { useApp } from "@/contexts/contextApi"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 
 interface FormValues {
   origem: string
   destino: string
-  ida: string
-  volta: string
+  data: string
   passageiros: number
 }
 
 const Planner: React.FC = () => {
+  const {rotas}=useApp()
   const [formData, setFormData] = useState<FormValues>({
     origem: "",
     destino: "",
-    ida: "",
-    volta: "",
+    data: "",
     passageiros: 0,
   })
     
@@ -28,8 +28,22 @@ const Planner: React.FC = () => {
 
   // Função para enviar os dados do formulário
   const onSubmit = (data: FormValues) => {
-    console.log(data)
-    // Lógica de envio aqui
+    // Verificar se existe alguma rota com os dados do formulário
+    const rotaEncontrada = rotas.find(
+      (rota) =>
+        rota.origem === data.origem &&
+        rota.destino === data.destino &&
+        rota.data_ida === data.data
+    )
+    
+    // Se não existir, mostrar mensagem de erro
+    if (!rotaEncontrada) {
+      alert("Não foi possível encontrar uma rota com os dados informados")
+      return
+    }
+    
+    
+    
   }
 
   // Função para limpar todos os campos
@@ -37,8 +51,7 @@ const Planner: React.FC = () => {
     setFormData({
       origem: "",
       destino: "",
-      ida: "",
-      volta: "",
+      data: "",
       passageiros: 0,
     })
   }
@@ -67,18 +80,18 @@ const Planner: React.FC = () => {
               className="input-ida"
               type="date"
               placeholder="Ida"
-              {...register("ida", {
-                required: "Data de ida é obrigatória",
+              {...register("data", {
+                required: "Data é obrigatória",
               })}
-              value={formData.ida}
+              value={formData.data}
               onChange={(e) =>
-                setFormData({ ...formData, ida: e.target.value })
+                setFormData({ ...formData, data: e.target.value })
               }
             />
-            {errors.ida && (
-              <span className="error-message-home">{errors.ida.message}</span>
+            {errors.data && (
+              <span className="error-message-home">{errors.data.message}</span>
             )}
-            <input
+            {/* <input
               className="input-volta"
               type="date"
               placeholder="Volta"
@@ -87,7 +100,7 @@ const Planner: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, volta: e.target.value })
               }
-            />
+            /> */}
           </div>
         </div>
 
