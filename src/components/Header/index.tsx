@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import "./header.css";
 import Link from "next/link";
