@@ -41,6 +41,12 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("rotas", JSON.stringify(used_routes))
 
     used_routes.sort(orderByYearThenByMonthThenByDayThenHour)
+    
+    used_routes = used_routes.filter((rota: Rota) => {
+      const now = new Date()
+      const rota_date = new Date(rota.data_ida)
+      return rota_date.getTime() > now.getTime()
+    })
 
     setRotas(used_routes)
 
