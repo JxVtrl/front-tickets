@@ -23,14 +23,16 @@ const Register: React.FC = () => {
 
   const onSubmit = async (data: FormData) => {
     // Lógica de envio aqui
-    try {
-      let response = await axios.post("http://localhost:3001/create-user", {
-        data,
-      });
 
-      if (response.status !== 200) {
-        alert("Cadastro inválido");
-      }
+    console.log(data);
+
+    try {
+      await axios.post("http://localhost:3001/auth/create-user", {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      });
 
       alert("Usuário cadastrado com sucesso");
     } catch (err) {

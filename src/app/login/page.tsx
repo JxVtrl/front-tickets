@@ -6,7 +6,6 @@ import Logo from "@/components/Logo";
 import Link from "next/link";
 import axios from "axios";
 
-
 interface FormData {
   email: string;
   password: string;
@@ -23,20 +22,30 @@ const Page: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/login", data, {
-        headers: {
-          "Content-Type": "application/json",
+      const response = await axios.post(
+        "http://localhost:3001/auth/login",
+        {
+          email: data.email,
+          password: data.password,
         },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (response.status === 200) {
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+      if (response.data.user.role === "admin") {
+        window.location.href = "/admin";
       }
+
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("userType", response.data.user.role);
       window.location.href = "/";
       data.email = "";
       data.password = "";
     } catch (err) {
-      alert("Login inválido");
+      alert("Erro ao fazer login");
     }
   };
 
