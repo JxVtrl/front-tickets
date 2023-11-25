@@ -10,6 +10,25 @@ export const random_date = (start: Date, end: Date) => {
   return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 }
 
+export const format_date = (date: string ) => {
+  const dateNew = new Date(date)
+  
+  const day = dateNew.getDate().toString().padStart(2, '0')
+  const month = (dateNew.getMonth() + 1).toString().padStart(2, '0')
+  const year = dateNew.getFullYear()
+  
+  return `${day}/${month}/${year}`
+}
+
+export const format_hour = (hour: string) => {
+  const hourSplit = hour.split(':')
+
+  const hourNew = hourSplit[0].toString().padStart(2, '0')
+  const minute = hourSplit[1].toString().padStart(2, '0')
+  
+  return `${hourNew}:${minute}`
+}
+
 export const random_boolean = () => {
   return Math.random() < 0.5
 }
