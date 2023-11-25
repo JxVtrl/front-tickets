@@ -6,22 +6,11 @@ import ChangeSearch from "./components/ChangeSearch"
 
 const Header: React.FC = () => {
   return (
-    <div className="
-flex
-flex-row
-justify-between
-items-center
-w-full
-px-[50px]
-mx-auto
-h-24
-">
-      <RoutePath/>
-      <div>
-        <PassengersNumber />
-        <DateShow/>
-        <ChangeSearch/>
-      </div>
+    <div className="flex flex-row justify-between items-center w-full px-50px] mx-auto h-24">
+      <RoutePath />
+      <PassengersNumber />
+      <DateShow />
+      <ChangeSearch />
     </div>
   )
 }
