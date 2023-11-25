@@ -11,7 +11,7 @@ const Details: React.FC = () => {
   if (!selectedRoute) return null
 
   return (
-    <div className="flex justify-between items-center bg-white rounded-2xl p-4 shadow-md w-full max-w-3xl mb-4 gap-4 mx-auto h-[300px]">
+    <div className="flex justify-between items-center bg-white rounded-2xl p-4 shadow-md w-full max-w-[800px] mb-4 gap-4 mx-auto h-[300px]">
       <div className="flex flex-col justify-between items-start h-full ">
         <TravelTime />
         <RoutePoints />
