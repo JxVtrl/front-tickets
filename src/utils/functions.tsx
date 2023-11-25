@@ -120,19 +120,22 @@ export const criar_rotas = () => {
       Math.floor(Math.random() * cidades.length)
     ]
     
-    let random_day = Math.floor(Math.random() * 30) + 1
-    let random_month = Math.floor(Math.random() * 12) + 1
+    let random_day = (Math.floor(Math.random() * 30) + 1).toString().padStart(2, "0")
+    let random_month = (Math.floor(Math.random() * 12) + 1).toString().padStart(2, "0")
     let random_year = Math.floor(Math.random() * 5) + 2023
+    
+    let data_ida = `${random_day}/${random_month}/${random_year}`
+    let data_chegada = `${random_day}/${random_month}/${random_year}`
     
     let rota: Rota = {
       id: i,
       origem,
       destino,
-      data_ida: `${random_day}/${random_month}/${random_year}`,
+      data_ida,
       hora_ida: `${Math.floor(Math.random() * 24)}:${Math.floor(
         Math.random() * 60
       )}`,
-      data_chegada: `${random_day}/${random_month}/${random_year}`,
+      data_chegada,
       hora_chegada: `${Math.floor(Math.random() * 24)}:${Math.floor(
         Math.random() * 60
       )}`,
