@@ -6,11 +6,11 @@ import { useApp } from "@/contexts/contextApi";
 import { HelpBox } from "@/components/HelpBox";
 
 const Header: React.FC = () => {
+  const [showHelpBox, setShowHelpBox] = useState(false);
   const { user } = useApp();
 
   if (window.location.pathname === "/login") return null;
 
-  const [showHelpBox, setShowHelpBox] = useState(false);
 
   return (
     <section className="header-sec">
