@@ -11,11 +11,11 @@ export const random_date = (start: Date, end: Date) => {
 }
 
 export const format_date = (date: string) => {
-  const dateNew = new Date(date)
+  const dateSplit = date.split("/")
 
-  const day = dateNew.getDate().toString().padStart(2, "0")
-  const month = (dateNew.getMonth() + 1).toString().padStart(2, "0")
-  const year = dateNew.getFullYear()
+  const day = dateSplit[0].toString().padStart(2, "0")
+  const month = dateSplit[1].toString().padStart(2, "0")
+  const year = dateSplit[2]
 
   return `${day}/${month}/${year}`
 }
@@ -30,33 +30,24 @@ export const format_hour = (hour: string) => {
 }
 
 export const orderByYearThenByMonthThenByDayThenHour = (a: Rota, b: Rota) => {
-  
-  // padStart(2, "0") -> 1 -> 01
   const hora_ida_a = a.hora_ida.split(":")[0].padStart(2, "0")  
   const minuto_ida_a = a.hora_ida.split(":")[1].padStart(2, "0") 
-  const data_ida_a = new Date(a.data_ida)
-  const dia_a = data_ida_a.getDate() < 10 ? `0${data_ida_a.getDate()}` : data_ida_a.getDate() 
-  const mes_a = data_ida_a.getMonth() < 10 ? `0${data_ida_a.getMonth()}` : data_ida_a.getMonth()
-  const ano_a = data_ida_a.getFullYear()
-  
-  const formatada_a = `${ano_a}-${mes_a}-${dia_a}:${hora_ida_a}:${minuto_ida_a}`
+  const data_ida_a = a.data_ida.split(a.data_ida.includes(',') ?',' :"/")
+  const dia_a = Number(data_ida_a[0]) < 10 ? `0${data_ida_a[0]}` : data_ida_a[0]
+  const mes_a = Number(data_ida_a[1]) < 10 ? `0${Number(data_ida_a[1])}` : data_ida_a[1]
+  const ano_a = data_ida_a[2]
   
   const hora_ida_b = b.hora_ida.split(":")[0].padStart(2, "0")
   const minuto_ida_b = b.hora_ida.split(":")[1].padStart(2, "0")
-  const data_ida_b = new Date(b.data_ida)
-  const dia_b = data_ida_b.getDate() < 10 ? `0${data_ida_b.getDate()}` : data_ida_b.getDate()
-  const mes_b = data_ida_b.getMonth() < 10 ? `0${data_ida_b.getMonth()}` : data_ida_b.getMonth()
-  const ano_b = data_ida_b.getFullYear()
-
-  const formatada_b = `${ano_b}-${mes_b}-${dia_b}:${hora_ida_b}:${minuto_ida_b}`
+  const data_ida_b = b.data_ida.split(b.data_ida.includes(',') ?',' :"/")
+  const dia_b = Number(data_ida_b[0]) < 10 ? `0${Number(data_ida_b[0])}` : Number(data_ida_b[0])
+  const mes_b = Number(data_ida_b[1]) < 10 ? `0${Number(data_ida_b[1])}` : Number(data_ida_b[1])
+  const ano_b = Number(data_ida_b[2])
   
+  const data_a = new Date(`${ano_a}-${mes_a}-${dia_a}T${hora_ida_a}:${minuto_ida_a}`)
+  const data_b = new Date(`${ano_b}-${mes_b}-${dia_b}T${hora_ida_b}:${minuto_ida_b}`)
   
-  if (formatada_a < formatada_b) return -1
-  if (formatada_a > formatada_b) return 1
-  return 0
-
-
-
+  return data_a.getTime() - data_b.getTime()
 }
 
 export const random_boolean = () => {
@@ -97,23 +88,27 @@ export const gerarValor = (min = 0, max = 1000) => {
 export const criar_rotas = () => {
   let rotas: Rota[] = []
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 50; i++) {
     const randomUser = generate_user()
 
     let origem = cidades[Math.floor(Math.random() * cidades.length)]
     let destino = cidades.filter((cidade) => cidade !== origem)[
       Math.floor(Math.random() * cidades.length)
     ]
-
+    
+    let random_day = Math.floor(Math.random() * 30) + 1
+    let random_month = Math.floor(Math.random() * 12) + 1
+    let random_year = Math.floor(Math.random() * 5) + 2023
+    
     let rota: Rota = {
       id: i,
       origem,
       destino,
-      data_ida: random_date(new Date(), new Date(2025, 12, 31)),
+      data_ida: `${random_day}/${random_month}/${random_year}`,
       hora_ida: `${Math.floor(Math.random() * 24)}:${Math.floor(
         Math.random() * 60
       )}`,
-      data_chegada: random_date(new Date(), new Date(2025, 12, 31)),
+      data_chegada: `${random_day}/${random_month}/${random_year}`,
       hora_chegada: `${Math.floor(Math.random() * 24)}:${Math.floor(
         Math.random() * 60
       )}`,

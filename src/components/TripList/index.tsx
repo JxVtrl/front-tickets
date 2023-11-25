@@ -11,8 +11,8 @@ const TripList: React.FC = () => {
         Viagens disponíveis
       </h2>
       <div className="w-full flex-col align-center justify-center m-auto bg-white rounded-md shadow-md p-4">
-        {rotas.map((rota) => {
-          return <TripItem rota={rota} />
+        {rotas.map((rota,index) => {
+          return <TripItem rota={rota} key={index} />
         })}
       </div>
     </div>
