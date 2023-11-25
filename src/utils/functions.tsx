@@ -85,6 +85,30 @@ export const gerarValor = (min = 0, max = 1000) => {
   return Math.floor(Math.random() * (max - min) + min)
 }
 
+export function travelTime(hora_ida: string, hora_chegada: string) {
+  const [horaIdaHours, horaIdaMinutes] = hora_ida.split(':').map(Number);
+  const [horaChegadaHours, horaChegadaMinutes] = hora_chegada.split(':').map(Number);
+
+  let diffHours = horaChegadaHours - horaIdaHours;
+  let diffMinutes = horaChegadaMinutes - horaIdaMinutes;
+
+  // Se a hora de ida for maior que a hora de chegada, adiciona 24 horas para corrigir a diferença
+  if (diffHours < 0) {
+    diffHours += 24;
+  }
+
+  // Se os minutos de ida forem maiores que os minutos de chegada, subtrai 1 hora e adiciona 60 minutos para corrigir a diferença
+  if (diffMinutes < 0) {
+    diffHours -= 1;
+    diffMinutes += 60;
+  }
+
+  const totalDiff = diffHours + diffMinutes / 60;
+  
+  return `${totalDiff.toFixed(0)}h ${diffMinutes.toFixed(0)}min`;
+
+}
+
 export const criar_rotas = () => {
   let rotas: Rota[] = []
 
