@@ -1,6 +1,9 @@
 "use client"
 
-import { criar_rotas } from "@/utils/functions"
+import {
+  criar_rotas,
+  orderByYearThenByMonthThenByDayThenHour,
+} from "@/utils/functions"
 import { Rota } from "@/types"
 import { createContext, useContext, useState, useEffect } from "react"
 
@@ -33,13 +36,14 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     const rotas_local = localStorage.getItem("rotas")
     console.log(rotas_local)
 
-    if (rotas_local) {
-      setRotas(JSON.parse(rotas_local))
-    } else {
-      const new_route = criar_rotas()
-      setRotas(new_route)
-      localStorage.setItem("rotas", JSON.stringify(new_route))
-    }
+    let used_routes = JSON.parse(rotas_local || "[]")
+
+    if (!rotas_local) used_routes = criar_rotas()
+    localStorage.setItem("rotas", JSON.stringify(used_routes))
+
+    used_routes.sort(orderByYearThenByMonthThenByDayThenHour)
+
+    setRotas(used_routes)
 
     const user = localStorage.getItem("user")
 
