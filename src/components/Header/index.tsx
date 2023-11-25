@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useApp } from "@/contexts/contextApi";
 import { HelpBox } from "@/components/HelpBox";
 
-const header: React.FC = () => {
+const Header: React.FC = () => {
   const { user } = useApp();
 
   if (window.location.pathname === "/login") return null;
@@ -85,4 +85,4 @@ const header: React.FC = () => {
   );
 };
 
-export default header;
+export default Header;
