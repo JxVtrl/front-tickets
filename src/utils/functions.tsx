@@ -109,16 +109,40 @@ export function travelTime(hora_ida: string, hora_chegada: string) {
 
 }
 
-export const criar_rotas = () => {
+export const getCoordsInGoogleMaps = async (cidade: string) => {
+  try {
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${cidade}&key=AIzaSyCTCwVmfCP44WUBBvmeXn7lvO1pJ4k5e2U`
+    )
+
+    const data = await response.json()
+  
+    console.log(data)
+  
+
+    const { lat, lng } = data.results[0].geometry.location
+
+    return { lat, lng }
+  } catch (error) {
+    console.log(error)
+    return { lat: 0, lng: 0 }
+  }
+}
+
+export const criar_rotas = async () => {
   let rotas: Rota[] = []
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 4; i++) {
     const randomUser = generate_user()
 
     let origem = cidades[Math.floor(Math.random() * cidades.length)]
     let destino = cidades.filter((cidade) => cidade !== origem)[
       Math.floor(Math.random() * cidades.length)
     ]
+    
+    let origem_coords = await getCoordsInGoogleMaps(origem)
+    let destino_coords = await getCoordsInGoogleMaps(destino)
+    
     
     let random_day = (Math.floor(Math.random() * 30) + 1).toString().padStart(2, "0")
     let random_month = (Math.floor(Math.random() * 12) + 1).toString().padStart(2, "0")
@@ -130,7 +154,9 @@ export const criar_rotas = () => {
     let rota: Rota = {
       id: i,
       origem,
+      origem_coords,
       destino,
+      destino_coords,
       data_ida,
       hora_ida: `${Math.floor(Math.random() * 24)}:${Math.floor(
         Math.random() * 60

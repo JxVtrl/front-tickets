@@ -1,5 +1,6 @@
 import React from "react"
 import { DateScroll, Progress, Header, Details } from "./components"
+import SelectedMap from "./components/SelectedMap"
 const Selected: React.FC = () => {
   return (
     <>
@@ -7,6 +8,7 @@ const Selected: React.FC = () => {
       <Progress />
       <DateScroll />
       <Details />
+      <SelectedMap/>
     </>
   )
 }

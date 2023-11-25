@@ -1,4 +1,5 @@
 import ArrowRight from "@/assets/icons/ArrowRight"
+import Map from "@/components/Map"
 import { Rota } from "@/types"
 import { format_date, format_hour } from "@/utils/functions"
 import Link from "next/link"
@@ -16,20 +17,36 @@ const TripItem: React.FC<TripItemProps> = ({ rota }) => {
         query: { id: rota.id },
       }}
       key={rota.id}
-      className="flex justify-between items-center w-full  bg-white shadow-md p-4 my-4 max-w-[800px] mx-auto rounded-md cursor-pointer hover:shadow-lg transition duration-200 ease-in-out"
+      className="w-full max-w-[800px] bg-white shadow-md my mx-auto rounded-md cursor-pointer hover:shadow-lg transition duration-200 ease-in-out p-5 gap-3 flex flex-col"
     >
-      <div>
-        <div className="flex items-center justify-center text-center gap-2">
-          <h3>{rota.origem} - {format_hour(rota.hora_ida)}</h3>
-          <ArrowRight />
-          <h3>{rota.destino} - {format_hour(rota.hora_chegada)}</h3>
+      <div
+        className="
+flex justify-between items-center
+"
+      >
+        <div>
+          <div className="flex items-center justify-center text-center gap-2">
+            <h3>
+              <b>{rota.origem}</b> - {format_hour(rota.hora_ida)}
+            </h3>
+            <ArrowRight />
+            <h3>
+              <b>{rota.destino}</b> - {format_hour(rota.hora_chegada)}
+            </h3>
+          </div>
+          <p>{format_date(rota.data_ida)}</p>
         </div>
-        <p>
-          {format_date(rota.data_ida)}
-        </p>
-        
+        <p className="
+text-xl
+font-bold
+text-green-500
+
+">R$ {rota.valor}</p>
       </div>
-      <p>R$ {rota.valor}</p>
+      {/* <Map
+        destination={rota.destino_coords}
+        origin={rota.origem_coords}
+      /> */}
     </Link>
   )
 }

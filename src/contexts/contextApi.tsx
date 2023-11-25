@@ -32,32 +32,38 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedRoute, setSelectedRoute] = useState<Rota | null>(null)
   const [selectSeatModal, setSelectSeatModal] = useState(false)
 
-  useEffect(() => {
-    const rotas_local = localStorage.getItem("rotas")
+  useEffect( () => {
+    const fetchRotas = async () => {
+      const rotas_local = localStorage.getItem("rotas")
 
-    let used_routes = JSON.parse(rotas_local || "[]")
+      let used_routes = JSON.parse(rotas_local || "[]")
 
-    if (!rotas_local) used_routes = criar_rotas()
-    localStorage.setItem("rotas", JSON.stringify(used_routes))
+      if (!rotas_local) used_routes = await criar_rotas()
+      localStorage.setItem("rotas", JSON.stringify(used_routes))
 
-    used_routes.sort(orderByYearThenByMonthThenByDayThenHour)
+      used_routes.sort(orderByYearThenByMonthThenByDayThenHour)
     
-    used_routes = used_routes.filter((rota: Rota) => {
-      const now = new Date()
-      const rota_ida = rota.data_ida.split("/").reverse().join("/")
-      const rota_date = new Date(rota_ida)
-      return rota_date.getTime() > now.getTime()
-    })
+      used_routes = used_routes.filter((rota: Rota) => {
+        const now = new Date()
+        const rota_ida = rota.data_ida.split("/").reverse().join("/")
+        const rota_date = new Date(rota_ida)
+        return rota_date.getTime() > now.getTime()
+      })
 
-    setRotas(used_routes)
-
+      setRotas(used_routes)
+    }
+    
     const user = localStorage.getItem("user")
 
     if (user) {
       setUser(JSON.parse(user))
     }
-  }, [])
-
+    
+    fetchRotas()
+  }
+  , [])
+    
+    
   const value = {
     user,
     setUser,
