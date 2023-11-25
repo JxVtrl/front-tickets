@@ -7,6 +7,8 @@ import React from "react"
 const Page: React.FC = () => {
   const { rotas,setSelectedRoute } = useApp()
   
+  if(!window) return null
+  
   const pageQuery = new URLSearchParams(window.location.search)
   const id = Number(pageQuery.get("id"))
 
