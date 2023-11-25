@@ -3,13 +3,14 @@ import { useApp } from "@/contexts/contextApi"
 import React from "react"
 
 const Header: React.FC = () => {
-  const { setSelectSeatModal } = useApp()
+  const { setSelectSeatModal,setSeatsSelected } = useApp()
   return (
     <div className="w-full h-[72px] flex items-center p-5 justify-between border-b border-gray-200">
       <span className="text-2xl font-bold">Seleção de assentos</span>
       <button
         onClick={() => {
           setSelectSeatModal(false)
+          setSeatsSelected([])
         }}
       >
         <CloseIcon />
