@@ -2,17 +2,15 @@
 
 import Selected from "@/components/Selected"
 import { useApp } from "@/contexts/contextApi"
-import { useRouter } from "next/router"
+import { usePathname } from "next/navigation"
 import React from "react"
 
 const Page: React.FC = () => {
   const { rotas,setSelectedRoute } = useApp()
   
-  const router = useRouter()
+  const pathname = usePathname()
   
-  const pathName = router.pathname
-  
-  const pageQuery = new URLSearchParams(pathName)
+  const pageQuery = new URLSearchParams(pathname)
   const id = Number(pageQuery.get("id"))
 
   React.useEffect(() => {
