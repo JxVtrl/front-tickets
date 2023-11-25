@@ -2,29 +2,20 @@
 
 import Selected from "@/components/Selected"
 import { useApp } from "@/contexts/contextApi"
-import { Rota } from "@/types"
 import React from "react"
 
-type Props = {
-  id: string | number
-}
-
-const Page: React.FC<Props> = ({ id }) => {
-  const [route, setRoute] = React.useState<Rota | null>(null)
-  const { rotas } = useApp()
+const Page: React.FC = () => {
+  const { rotas,setSelectedRoute } = useApp()
+  
+  const pageQuery = new URLSearchParams(window.location.search)
+  const id = Number(pageQuery.get("id"))
 
   React.useEffect(() => {
-    const route = rotas.find((rota) => rota.id == id)
-    setRoute(route || null)
-  }, [id, rotas])
+    const route = rotas.find((rota) => rota.id === id)
+    setSelectedRoute(route || null)
+  }, [rotas,id])
 
-  if (!route) return <div />
-
-  return (
-    <div>
-      <Selected />
-    </div>
-  )
+  return <Selected />
 }
 
 export default Page

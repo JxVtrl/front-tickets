@@ -1,6 +1,5 @@
-import React from 'react';
-import {DateScroll,Progress,Header  ,Details} from './components'
-
+import React from "react"
+import { DateScroll, Progress, Header, Details } from "./components"
 const Selected: React.FC = () => {
   return (
     <>
@@ -9,7 +8,7 @@ const Selected: React.FC = () => {
       <DateScroll />
       <Details />
     </>
-  );
+  )
 }
 
-export default Selected;
+export default Selected

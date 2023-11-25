@@ -22,8 +22,6 @@ const Register: React.FC = () => {
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-
     // Lógica de envio aqui
     try {
       let response = await axios.post("http://localhost:3001/create-user", {

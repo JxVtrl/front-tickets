@@ -3,9 +3,9 @@ import { useApp } from "@/contexts/contextApi"
 import React from "react"
 
 const SeatModal: React.FC = () => {
-  const { selectedRoute, setSelectedRoute } = useApp()
+  const { selectSeatModal, setSelectSeatModal  } = useApp()
 
-  if(!selectedRoute) return null
+  if(!selectSeatModal) return null
 
   return (
     // overlay
@@ -16,9 +16,6 @@ const SeatModal: React.FC = () => {
       <div
         className="bg-white w-[90%] h-[90%] rounded-xl flex flex-col justify-center items-center"
       >
-      
-      
-      
       
       </div>
     </div>
