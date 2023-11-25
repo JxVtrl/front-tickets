@@ -8,7 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 const Header: React.FC = () => {
   const [showHelpBox, setShowHelpBox] = useState(false);
-  const { user } = useApp();
+  const { user,setUser } = useApp();
   
   const pathname = usePathname()
   const router = useRouter()
@@ -65,10 +65,10 @@ const Header: React.FC = () => {
             </div>
             <button
               className="header-button-login"
-              onClick={() => {
+                onClick={() => {
+                setUser(null);
                 localStorage.removeItem("user");
                 localStorage.removeItem("userType");
-                router.push("/login");
               }}
             >
               Sair
