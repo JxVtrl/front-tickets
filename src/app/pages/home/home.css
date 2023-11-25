@@ -17,6 +17,7 @@
 }
 .input-origem,
 .input-destino {
+  position: relative;
   max-width: 520px;
   width: 100%;
   padding: 10px 23px;
@@ -80,6 +81,7 @@ input::placeholder {
   display: flex;
   gap: 10px;
   text-wrap: nowrap;
+  align-items: center;
 }
 .inputs-ida-volta-container {
   display: flex;
@@ -111,32 +113,37 @@ input::placeholder {
 }
 
 /* Ajustes para os erros de validação */
-.input-origem, .input-destino {
+.input-origem,
+.input-destino {
   margin-bottom: 15px;
 }
 
 .error-message-home {
-  display: block; 
-  color: #ff0000; 
+  display: block;
+  color: #ff0000;
   font-weight: bold;
-  font-size: 12px; 
+  font-size: 12px;
   margin-top: 4px;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
-.inputs1-compra, .inputs2-compra, .inputs-ida-volta-container, .finalizar-busca-container {
-  position: relative; 
+.inputs1-compra,
+.inputs2-compra,
+.inputs-ida-volta-container,
+.finalizar-busca-container {
+  position: relative;
   padding-bottom: 20px;
 }
 
 .error-message-home {
-  position: absolute; 
-  bottom: -10px; 
-  left: 5px; 
-  width: 100%; 
-  text-align: left; 
+  position: absolute;
+  bottom: -10px;
+  left: 5px;
+  width: 100%;
+  text-align: left;
 }
 
-.origin-error, .destiny-error {
+.origin-error,
+.destiny-error {
   bottom: 77px;
 }

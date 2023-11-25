@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./header.css";
 import Link from "next/link";
 import { useApp } from "@/contexts/contextApi";
+import { HelpBox } from "../HelpBox";
 
 const header: React.FC = () => {
   const { user } = useApp();
+
+  const [showHelpBox, setShowHelpBox] = useState(false);
 
   return (
     <section className="header-sec">
@@ -31,10 +34,21 @@ const header: React.FC = () => {
         </div>
         {!user ? (
           <div className="header-buttons-container">
-            <button className="header-button-login">
-              <Link href="/login">ENTRAR</Link>
+            <Link href="/login">
+              <button className="header-button-login">ENTRAR</button>
+            </Link>
+            <button
+              onMouseOver={() => {
+                setShowHelpBox(true);
+              }}
+              onMouseLeave={() => {
+                setShowHelpBox(false);
+              }}
+              className="header-button-ajuda"
+            >
+              ?
             </button>
-            <button className="header-button-ajuda">?</button>
+            {showHelpBox && <HelpBox />}
           </div>
         ) : (
           <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
