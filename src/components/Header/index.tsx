@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./header.css";
 import Link from "next/link";
 import { useApp } from "@/contexts/contextApi";
-import { HelpBox } from "@/app/components/HelpBox";
+import { HelpBox } from "@/components/HelpBox";
 
 const header: React.FC = () => {
   const { user } = useApp();

@@ -3,7 +3,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Admin = () => {
+export default function Admin () {
   const [selectedButton, setSelectedButton] = useState<string>("");
   const [routeId, setRouteId] = useState<string>("");
 
@@ -146,5 +146,3 @@ const Admin = () => {
     </div>
   );
 };
-
-export default Admin;
