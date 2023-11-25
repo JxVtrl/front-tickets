@@ -70,7 +70,7 @@ export const generate_user = () => {
 export const gerarAssentos = () => {
   let assentos = []
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 48; i++) {
     assentos.push({
       id: i,
       numero: i + 1,

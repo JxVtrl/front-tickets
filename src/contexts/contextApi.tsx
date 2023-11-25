@@ -4,7 +4,7 @@ import {
   criar_rotas,
   orderByYearThenByMonthThenByDayThenHour,
 } from "@/utils/functions"
-import { Rota } from "@/types"
+import { Assento, Rota } from "@/types"
 import { createContext, useContext, useState, useEffect } from "react"
 
 type User = {
@@ -22,6 +22,12 @@ interface ContextProps {
   setSelectedRoute: React.Dispatch<React.SetStateAction<Rota | null>>
   selectSeatModal: boolean
   setSelectSeatModal: React.Dispatch<React.SetStateAction<boolean>>
+  seatsSelected: Assento[]
+  setSeatsSelected: React.Dispatch<
+    React.SetStateAction<
+      Assento[]
+    >
+  >
 }
 
 const AppContext = createContext<ContextProps>({} as ContextProps)
@@ -31,6 +37,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [rotas, setRotas] = useState<Rota[]>([])
   const [selectedRoute, setSelectedRoute] = useState<Rota | null>(null)
   const [selectSeatModal, setSelectSeatModal] = useState(false)
+  const [seatsSelected, setSeatsSelected] = useState<Assento[]>([])
 
   useEffect( () => {
     const fetchRotas = async () => {
@@ -72,6 +79,8 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     setSelectedRoute,
     selectSeatModal,
     setSelectSeatModal,
+    seatsSelected,
+    setSeatsSelected,
   }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

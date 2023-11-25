@@ -2,10 +2,10 @@ import LocationIcon from "@/assets/icons/LocationIcon"
 import { useApp } from "@/contexts/contextApi"
 import React from "react"
 
-const RoutePoints: React.FC = () => {
+const RoutePoints: React.FC = (props) => {
   const { selectedRoute } = useApp()
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5" {...props}>
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <LocationIcon />
