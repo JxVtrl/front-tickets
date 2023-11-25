@@ -51,8 +51,9 @@ const Admin = () => {
       <h1 className="font-bold text-2xl">Página de Admin</h1>
 
       <div className="flex flex-col gap-4">
-        {adminOptions.map((option) => (
+        {adminOptions.map((option,index) => (
           <button
+            key={index}
             value={selectedButton}
             onClick={() => {
               setSelectedButton(option.name);
