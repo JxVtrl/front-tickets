@@ -18,6 +18,7 @@ const Header: React.FC = () => {
   return (
     <section className="header-sec">
       <div className="header-container">
+        <Link href="/">
         <div className="header-logo-container">
           <svg
             width="174"
@@ -37,7 +38,8 @@ const Header: React.FC = () => {
               fill="white"
             />
           </svg>
-        </div>
+          </div>
+        </Link>
         {!user ? (
           <div className="header-buttons-container">
             <Link href="/login">
