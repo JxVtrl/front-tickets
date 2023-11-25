@@ -1,6 +1,5 @@
-import Map from "@/components/Map"
 import { useApp } from "@/contexts/contextApi"
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { Loader } from "@googlemaps/js-api-loader"
 
 const SelectedMap: React.FC = () => {
