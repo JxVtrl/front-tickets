@@ -2,7 +2,7 @@
 
 import Selected from "@/components/Selected"
 import { useApp } from "@/contexts/contextApi"
-import { useParams, usePathname,useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import React from "react"
 
 const Page: React.FC = () => {

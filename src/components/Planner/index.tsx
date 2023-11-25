@@ -45,9 +45,6 @@ const Planner: React.FC = () => {
         rota.data_ida === dataReverse
     )
     
-    console.log(rotaEncontrada)
-    
-
     // Se não existir, mostrar mensagem de erro
     if (!rotaEncontrada) {
       alert("Não foi possível encontrar uma rota com os dados informados")

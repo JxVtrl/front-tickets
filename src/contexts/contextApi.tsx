@@ -34,7 +34,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const rotas_local = localStorage.getItem("rotas")
-    console.log(rotas_local)
 
     let used_routes = JSON.parse(rotas_local || "[]")
 
