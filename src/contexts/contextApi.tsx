@@ -4,7 +4,7 @@ import {
   criar_rotas,
   orderByYearThenByMonthThenByDayThenHour,
 } from "@/utils/functions"
-import { Rota } from "@/types"
+import { Assento, Rota } from "@/types"
 import { createContext, useContext, useState, useEffect } from "react"
 
 type User = {
@@ -22,6 +22,12 @@ interface ContextProps {
   setSelectedRoute: React.Dispatch<React.SetStateAction<Rota | null>>
   selectSeatModal: boolean
   setSelectSeatModal: React.Dispatch<React.SetStateAction<boolean>>
+  seatsSelected: Assento[]
+  setSeatsSelected: React.Dispatch<
+    React.SetStateAction<
+      Assento[]
+    >
+  >
 }
 
 const AppContext = createContext<ContextProps>({} as ContextProps)
@@ -31,27 +37,40 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [rotas, setRotas] = useState<Rota[]>([])
   const [selectedRoute, setSelectedRoute] = useState<Rota | null>(null)
   const [selectSeatModal, setSelectSeatModal] = useState(false)
+  const [seatsSelected, setSeatsSelected] = useState<Assento[]>([])
 
-  useEffect(() => {
-    const rotas_local = localStorage.getItem("rotas")
-    console.log(rotas_local)
+  useEffect( () => {
+    const fetchRotas = async () => {
+      const rotas_local = localStorage.getItem("rotas")
 
-    let used_routes = JSON.parse(rotas_local || "[]")
+      let used_routes = JSON.parse(rotas_local || "[]")
 
-    if (!rotas_local) used_routes = criar_rotas()
-    localStorage.setItem("rotas", JSON.stringify(used_routes))
+      if (!rotas_local) used_routes = await criar_rotas()
+      localStorage.setItem("rotas", JSON.stringify(used_routes))
 
-    used_routes.sort(orderByYearThenByMonthThenByDayThenHour)
+      used_routes.sort(orderByYearThenByMonthThenByDayThenHour)
+    
+      used_routes = used_routes.filter((rota: Rota) => {
+        const now = new Date()
+        const rota_ida = rota.data_ida.split("/").reverse().join("/")
+        const rota_date = new Date(rota_ida)
+        return rota_date.getTime() > now.getTime()
+      })
 
-    setRotas(used_routes)
-
+      setRotas(used_routes)
+    }
+    
     const user = localStorage.getItem("user")
 
     if (user) {
       setUser(JSON.parse(user))
     }
-  }, [])
-
+    
+    fetchRotas()
+  }
+  , [])
+    
+    
   const value = {
     user,
     setUser,
@@ -60,6 +79,8 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     setSelectedRoute,
     selectSeatModal,
     setSelectSeatModal,
+    seatsSelected,
+    setSeatsSelected,
   }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

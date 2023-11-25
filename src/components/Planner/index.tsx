@@ -8,6 +8,7 @@ import Data from "./component/Data"
 import Destino from "./component/Destino"
 import Passageiros from "./component/Passageiros"
 import Limpar from "./component/Limpar"
+import { useRouter } from "next/navigation"
 
 export interface FormValues {
   origem: string
@@ -30,22 +31,28 @@ const Planner: React.FC = () => {
     formState: { errors },
     register,
   } = useForm<FormValues>()
+  
+  const router = useRouter()
 
   // Função para enviar os dados do formulário
   const onSubmit = (data: FormValues) => {
-    // Verificar se existe alguma rota com os dados do formulário
+    const dataReverse = data.data.split("-").reverse().join("/")
+    
     const rotaEncontrada = rotas.find(
       (rota) =>
         rota.origem === data.origem &&
         rota.destino === data.destino &&
-        rota.data_ida === data.data
+        rota.data_ida === dataReverse
     )
-
+    
     // Se não existir, mostrar mensagem de erro
-    // if (!rotaEncontrada) {
-    //   alert("Não foi possível encontrar uma rota com os dados informados")
-    //   return
-    // }
+    if (!rotaEncontrada) {
+      alert("Não foi possível encontrar uma rota com os dados informados")
+      return
+    } else {
+      router.push(`/selecionar?id=${rotaEncontrada.id}`)
+    }
+      
   }
 
   // Função para limpar todos os campos

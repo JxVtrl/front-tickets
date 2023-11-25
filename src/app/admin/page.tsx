@@ -2,10 +2,14 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { usePathname,useRouter } from "next/navigation";
+import { useApp } from "@/contexts/contextApi";
 
-const Admin = () => {
+export default function Admin () {
   const [selectedButton, setSelectedButton] = useState<string>("");
   const [routeId, setRouteId] = useState<string>("");
+  
+  const router = useRouter()
 
   const handleDeleteRoute = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,7 +19,7 @@ const Admin = () => {
         .delete(`http://localhost:3001/routes/delete-route/${routeId}`)
         .then(() => {
           alert("Rota deletada com sucesso");
-          window.location.href = "/admin";
+          router.push("/admin")
         });
     } catch (err) {
       console.log(err);
@@ -38,9 +42,7 @@ const Admin = () => {
     const verifyUserType = async () => {
       const userType = localStorage.getItem("userType");
       if (userType !== "admin") {
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 300);
+        router.push("/");
       }
     };
     verifyUserType();
@@ -51,8 +53,9 @@ const Admin = () => {
       <h1 className="font-bold text-2xl">Página de Admin</h1>
 
       <div className="flex flex-col gap-4">
-        {adminOptions.map((option) => (
+        {adminOptions.map((option,index) => (
           <button
+            key={index}
             value={selectedButton}
             onClick={() => {
               setSelectedButton(option.name);
@@ -145,5 +148,3 @@ const Admin = () => {
     </div>
   );
 };
-
-export default Admin;

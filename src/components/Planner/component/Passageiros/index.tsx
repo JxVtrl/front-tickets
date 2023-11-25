@@ -23,7 +23,7 @@ const Passageiros: React.FC<Props> = ({
         {...register("passageiros", {
           required: "Número de passageiros é obrigatório",
           valueAsNumber: true,
-          validate: (value:any) => value.passageiros > 0 || "Selecione algum passageiro.",
+          // validate: (value:any) => !!value.passageiros || "Selecione algum passageiro.",
         })}
         value={value.passageiros}
         onChange={(e) =>

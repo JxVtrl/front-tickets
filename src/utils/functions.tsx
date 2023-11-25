@@ -33,8 +33,8 @@ export const orderByYearThenByMonthThenByDayThenHour = (a: Rota, b: Rota) => {
   const hora_ida_a = a.hora_ida.split(":")[0].padStart(2, "0")  
   const minuto_ida_a = a.hora_ida.split(":")[1].padStart(2, "0") 
   const data_ida_a = a.data_ida.split(a.data_ida.includes(',') ?',' :"/")
-  const dia_a = Number(data_ida_a[0]) < 10 ? `0${data_ida_a[0]}` : data_ida_a[0]
-  const mes_a = Number(data_ida_a[1]) < 10 ? `0${Number(data_ida_a[1])}` : data_ida_a[1]
+  const dia_a = Number(data_ida_a[0]) < 10 ? `0${Number(data_ida_a[0])}` :Number( data_ida_a[0])
+  const mes_a = Number(data_ida_a[1]) < 10 ? `0${Number(data_ida_a[1])}` : Number(data_ida_a[1])
   const ano_a = data_ida_a[2]
   
   const hora_ida_b = b.hora_ida.split(":")[0].padStart(2, "0")
@@ -70,7 +70,7 @@ export const generate_user = () => {
 export const gerarAssentos = () => {
   let assentos = []
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 48; i++) {
     assentos.push({
       id: i,
       numero: i + 1,
@@ -109,10 +109,23 @@ export function travelTime(hora_ida: string, hora_chegada: string) {
 
 }
 
-export const criar_rotas = () => {
+export const getCoordsInGoogleMaps = async (cidade: string) => {
+  try {
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${cidade}&key=AIzaSyCTCwVmfCP44WUBBvmeXn7lvO1pJ4k5e2U`
+    )
+    
+    const data = await response.json()
+    return data.results[0].geometry.location
+  } catch (error) {
+    return false
+  }
+}
+
+export const criar_rotas = async () => {
   let rotas: Rota[] = []
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 4; i++) {
     const randomUser = generate_user()
 
     let origem = cidades[Math.floor(Math.random() * cidades.length)]
@@ -120,19 +133,43 @@ export const criar_rotas = () => {
       Math.floor(Math.random() * cidades.length)
     ]
     
-    let random_day = Math.floor(Math.random() * 30) + 1
-    let random_month = Math.floor(Math.random() * 12) + 1
-    let random_year = Math.floor(Math.random() * 5) + 2023
+    let origem_coords = await getCoordsInGoogleMaps(origem)
+    do {
+      origem = cidades[Math.floor(Math.random() * cidades.length)]
+      destino = cidades.filter((cidade) => cidade !== origem)[
+        Math.floor(Math.random() * cidades.length)
+      ]
+      origem_coords = await getCoordsInGoogleMaps(origem)
+    } while (!origem_coords)
+    
+    let destino_coords = await getCoordsInGoogleMaps(destino)
+    do {
+      origem = cidades[Math.floor(Math.random() * cidades.length)]
+      destino = cidades.filter((cidade) => cidade !== origem)[
+        Math.floor(Math.random() * cidades.length)
+      ]
+      destino_coords = await getCoordsInGoogleMaps(destino)
+    } while (!destino_coords)
+    
+    
+    let random_day = (Math.floor(Math.random() * 30) + 1).toString().padStart(2, "0")
+    let random_month = (Math.floor(Math.random() * 12) + 1).toString().padStart(2, "0")
+    let random_year = Math.floor(Math.random() * 2) + 2023
+    
+    let data_ida = `${random_day}/${random_month}/${random_year}`
+    let data_chegada = `${random_day}/${random_month}/${random_year}`
     
     let rota: Rota = {
       id: i,
       origem,
+      origem_coords,
       destino,
-      data_ida: `${random_day}/${random_month}/${random_year}`,
+      destino_coords,
+      data_ida,
       hora_ida: `${Math.floor(Math.random() * 24)}:${Math.floor(
         Math.random() * 60
       )}`,
-      data_chegada: `${random_day}/${random_month}/${random_year}`,
+      data_chegada,
       hora_chegada: `${Math.floor(Math.random() * 24)}:${Math.floor(
         Math.random() * 60
       )}`,

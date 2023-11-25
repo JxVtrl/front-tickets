@@ -3,23 +3,27 @@ import React, { useState } from "react";
 import "./header.css";
 import Link from "next/link";
 import { useApp } from "@/contexts/contextApi";
-import { HelpBox } from "@/app/components/HelpBox";
-import { Header } from "../Selected/components";
+import { HelpBox } from "@/components/HelpBox";
+import { usePathname, useRouter } from "next/navigation";
 import HeaderLeftIcon from "@/app/components/HeaderLeftIcon";
 
-const header: React.FC = () => {
-  const { user } = useApp();
-
-  if (window.location.pathname === "/login") return null;
-
+const Header: React.FC = () => {
   const [showHelpBox, setShowHelpBox] = useState(false);
+  const { user, setUser } = useApp();
+
+  const pathname = usePathname();
+  const router = useRouter();
+
+  if (pathname === "/login" || pathname === "/register") return null;
 
   return (
     <section className="header-sec">
       <div className="header-container">
-        <div className="header-logo-container">
-          <HeaderLeftIcon />
-        </div>
+        <Link href="/">
+          <div className="header-logo-container">
+            <HeaderLeftIcon />
+          </div>
+        </Link>
         {!user ? (
           <div className="header-buttons-container">
             <Link href="/login">
@@ -46,9 +50,9 @@ const header: React.FC = () => {
             <button
               className="header-button-login"
               onClick={() => {
+                setUser(null);
                 localStorage.removeItem("user");
                 localStorage.removeItem("userType");
-                window.location.href = "/login";
               }}
             >
               Sair
@@ -57,7 +61,7 @@ const header: React.FC = () => {
               <button
                 className="w-full bg-[#213a5c] hover:bg-[#213a5c]/90 rounded-md text-white font-bold py-2 px-4"
                 onClick={() => {
-                  window.location.href = "/admin";
+                  router.push("/admin");
                 }}
               >
                 Painel de Admin
@@ -70,4 +74,4 @@ const header: React.FC = () => {
   );
 };
 
-export default header;
+export default Header;

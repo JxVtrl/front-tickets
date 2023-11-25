@@ -1,14 +1,16 @@
-"use client";
+"use client"
 
-import React from "react";
-import { useForm } from "react-hook-form";
-import Logo from "@/components/Logo";
-import Link from "next/link";
-import axios from "axios";
+import React from "react"
+import { useForm } from "react-hook-form"
+import Logo from "@/components/Logo"
+import Link from "next/link"
+import axios from "axios"
+import { useRouter } from "next/navigation"
+import { useApp } from "@/contexts/contextApi"
 
 interface FormData {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 const Page: React.FC = () => {
@@ -16,10 +18,13 @@ const Page: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>()
+  const { setUser } = useApp()
+
+  const router = useRouter()
 
   const onSubmit = async (data: FormData, e: any) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       const response = await axios.post(
@@ -33,21 +38,20 @@ const Page: React.FC = () => {
             "Content-Type": "application/json",
           },
         }
-      );
+      )
+
+      setUser(response.data.user)
+      localStorage.setItem("user", JSON.stringify(response.data.user))
 
       if (response.data.user.role === "admin") {
-        window.location.href = "/admin";
+        localStorage.setItem("userType", response.data.user.role)
+        router.push("/admin")
       }
-
-      localStorage.setItem("user", JSON.stringify(response.data.user));
-      localStorage.setItem("userType", response.data.user.role);
-      window.location.href = "/";
-      data.email = "";
-      data.password = "";
     } catch (err) {
-      alert("Erro ao fazer login");
+      alert("Erro ao fazer login")
     }
-  };
+    router.push("/")
+  }
 
   return (
     <div className="login-page-wrapper">
@@ -91,7 +95,7 @@ const Page: React.FC = () => {
         </span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
