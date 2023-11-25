@@ -33,8 +33,8 @@ export const orderByYearThenByMonthThenByDayThenHour = (a: Rota, b: Rota) => {
   const hora_ida_a = a.hora_ida.split(":")[0].padStart(2, "0")  
   const minuto_ida_a = a.hora_ida.split(":")[1].padStart(2, "0") 
   const data_ida_a = a.data_ida.split(a.data_ida.includes(',') ?',' :"/")
-  const dia_a = Number(data_ida_a[0]) < 10 ? `0${data_ida_a[0]}` : data_ida_a[0]
-  const mes_a = Number(data_ida_a[1]) < 10 ? `0${Number(data_ida_a[1])}` : data_ida_a[1]
+  const dia_a = Number(data_ida_a[0]) < 10 ? `0${Number(data_ida_a[0])}` :Number( data_ida_a[0])
+  const mes_a = Number(data_ida_a[1]) < 10 ? `0${Number(data_ida_a[1])}` : Number(data_ida_a[1])
   const ano_a = data_ida_a[2]
   
   const hora_ida_b = b.hora_ida.split(":")[0].padStart(2, "0")
@@ -122,7 +122,7 @@ export const criar_rotas = () => {
     
     let random_day = (Math.floor(Math.random() * 30) + 1).toString().padStart(2, "0")
     let random_month = (Math.floor(Math.random() * 12) + 1).toString().padStart(2, "0")
-    let random_year = Math.floor(Math.random() * 5) + 2023
+    let random_year = Math.floor(Math.random() * 2) + 2023
     
     let data_ida = `${random_day}/${random_month}/${random_year}`
     let data_chegada = `${random_day}/${random_month}/${random_year}`
