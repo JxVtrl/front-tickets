@@ -1,9 +1,21 @@
-import React from 'react';
+"use client"
 
-// TELA DE SELECIONAR O ASSENTO
+import Selected from "@/components/Selected"
+import { useApp } from "@/contexts/contextApi"
+import React from "react"
 
 const Page: React.FC = () => {
-  return <div />;
+  const { rotas,setSelectedRoute } = useApp()
+  
+  const pageQuery = new URLSearchParams(window.location.search)
+  const id = Number(pageQuery.get("id"))
+
+  React.useEffect(() => {
+    const route = rotas.find((rota) => rota.id === id)
+    setSelectedRoute(route || null)
+  }, [rotas,id])
+
+  return <Selected />
 }
 
-export default Page;
+export default Page

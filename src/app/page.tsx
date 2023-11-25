@@ -1,15 +1,14 @@
-
-// TELA DE HOME
-
-// import Login from "./register/page";
-import HomeP from './pages/home/page'
-import Footer from './components/footer/page'
+import React from "react"
+import Banner from "@/components/Banner"
+import Planner from "@/components/Planner"
+import TripList from "@/components/TripList"
 
 export default function Home() {
   return (
-    <>
-      <HomeP />
-      <Footer />
-    </>
+    <section>
+      <Banner />
+      <Planner />
+      <TripList />
+    </section>
   )
 }
