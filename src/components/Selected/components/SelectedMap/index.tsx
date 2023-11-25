@@ -1,13 +1,14 @@
 import { useApp } from "@/contexts/contextApi"
 import React, { useEffect } from "react"
-import { Loader } from "@googlemaps/js-api-loader"
 import { googleLoader } from "@/utils/google"
+import { Rota } from "@/types"
 
-const SelectedMap: React.FC = () => {
+type SelectedMapProps = {
+  route: Rota | null
+}
+
+const SelectedMap: React.FC<SelectedMapProps> = ({ route }) => {
   const mapRef = React.useRef<HTMLDivElement>(document.createElement("div"))
-
-  const [mapError, setMapError] = React.useState(false)
-  const { selectedRoute } = useApp()
 
   const initMap = async (
     origin: {
@@ -27,6 +28,7 @@ const SelectedMap: React.FC = () => {
     const map = new Map(mapRef.current, {
       center: origin,
       zoom: 8,
+      disableDefaultUI: true,
     })
 
     directionsRenderer.setMap(map)
@@ -66,38 +68,10 @@ const SelectedMap: React.FC = () => {
     )
   }
 
-  const fetchCoords = async () => {
-    try {
-      const { Geocoder } = await googleLoader.importLibrary("geocoding")
-
-      const geocoder = new Geocoder()
-
-      const originAddress = await geocoder.geocode({
-        address: selectedRoute?.origem,
-      })
-      const destinationAddress = await geocoder.geocode({
-        address: selectedRoute?.destino,
-      })
-
-      initMap(
-        {
-          lat: originAddress.results[0].geometry.location.lat(),
-          lng: originAddress.results[0].geometry.location.lng(),
-        },
-        {
-          lat: destinationAddress.results[0].geometry.location.lat(),
-          lng: destinationAddress.results[0].geometry.location.lng(),
-        }
-      )
-    } catch (err) {
-        setMapError(true)
-        console.log(err)
-    }
-  }
-
   useEffect(() => {
-    fetchCoords()
-  }, [selectedRoute])
+    if (!route) return
+    initMap(route.origem_coords, route.destino_coords)
+  }, [route])
 
   return (
     <div
@@ -105,6 +79,7 @@ const SelectedMap: React.FC = () => {
         width: "100%",
         maxWidth: "800px",
         height: "100%",
+        minHeight: "300px",
         maxHeight: "300px",
         margin: "24px auto",
         borderRadius: "8px",

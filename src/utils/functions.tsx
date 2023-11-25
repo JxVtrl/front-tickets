@@ -114,18 +114,11 @@ export const getCoordsInGoogleMaps = async (cidade: string) => {
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${cidade}&key=AIzaSyCTCwVmfCP44WUBBvmeXn7lvO1pJ4k5e2U`
     )
-
+    
     const data = await response.json()
-  
-    console.log(data)
-  
-
-    const { lat, lng } = data.results[0].geometry.location
-
-    return { lat, lng }
+    return data.results[0].geometry.location
   } catch (error) {
-    console.log(error)
-    return { lat: 0, lng: 0 }
+    return false
   }
 }
 
@@ -141,7 +134,22 @@ export const criar_rotas = async () => {
     ]
     
     let origem_coords = await getCoordsInGoogleMaps(origem)
+    do {
+      origem = cidades[Math.floor(Math.random() * cidades.length)]
+      destino = cidades.filter((cidade) => cidade !== origem)[
+        Math.floor(Math.random() * cidades.length)
+      ]
+      origem_coords = await getCoordsInGoogleMaps(origem)
+    } while (!origem_coords)
+    
     let destino_coords = await getCoordsInGoogleMaps(destino)
+    do {
+      origem = cidades[Math.floor(Math.random() * cidades.length)]
+      destino = cidades.filter((cidade) => cidade !== origem)[
+        Math.floor(Math.random() * cidades.length)
+      ]
+      destino_coords = await getCoordsInGoogleMaps(destino)
+    } while (!destino_coords)
     
     
     let random_day = (Math.floor(Math.random() * 30) + 1).toString().padStart(2, "0")
