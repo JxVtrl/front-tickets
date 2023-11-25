@@ -29,7 +29,7 @@ const TravelTime: React.FC = () => {
       </div>
       <span>
         Previsão de{" "}
-        <b>
+        <b id='duration'>
           {travelTime(selectedRoute?.hora_ida, selectedRoute?.hora_chegada)}
         </b>{" "}
         de viagem

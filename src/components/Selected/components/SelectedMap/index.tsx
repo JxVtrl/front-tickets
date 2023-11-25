@@ -75,6 +75,28 @@ const SelectedMap: React.FC = () => {
           directionsRenderer.setDirections(result)
         }
       })
+        
+        // coletar o tempo de viagem medio
+        const service = new google.maps.DistanceMatrixService();
+        
+        service.getDistanceMatrix(
+          {
+            origins: [origin],
+            destinations: [destination],
+            travelMode: google.maps.TravelMode.DRIVING,
+            }, (response, status) => {
+                if(!response) return console.log("error")
+                
+            if (status !== "OK") {
+              alert("Error was: " + status);
+            } else {
+                const duration = response.rows[0].elements[0].duration?.text
+              const durationElement = document.getElementById("duration")
+              
+              if (durationElement) durationElement.innerHTML = duration || ""
+            }
+          }
+        );
     }
 
     fetchCoords()
