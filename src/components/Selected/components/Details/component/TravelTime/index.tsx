@@ -3,7 +3,7 @@ import React from "react"
 import ArrowRight from "@/assets/icons/ArrowRight"
 import ClockIcon from "@/assets/icons/ClockIcon"
 import { useApp } from "@/contexts/contextApi"
-import { format_hour } from "@/utils/functions"
+import { format_hour, travelTime } from "@/utils/functions"
 
 const TravelTime: React.FC = () => {
   const { selectedRoute } = useApp()
@@ -11,6 +11,7 @@ const TravelTime: React.FC = () => {
   if (!selectedRoute) return null
 
   return (
+    <>
     <div className="flex justify-between items-center bg-white rounded-2xl px-4 py-2 shadow-md w-fit mb-4 gap-4 ">
       <div className="flex items-center gap-2">
         <ClockIcon />
@@ -26,6 +27,14 @@ const TravelTime: React.FC = () => {
         </div>
       </div>
     </div>
+<span>
+            Previsão de{" "}
+            <b>
+              {travelTime(selectedRoute?.hora_ida, selectedRoute?.hora_chegada)}
+            </b>{" "}
+            de viagem
+          </span>
+    </>
   )
 }
 
