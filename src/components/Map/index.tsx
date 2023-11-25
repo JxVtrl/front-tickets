@@ -27,25 +27,11 @@ const Map: React.FC<MapProps> = ({ origin, destination }) => {
       const { Marker } = await loader.importLibrary("marker")
 
       const center_lat = (origin.lat + destination.lat) / 2
-        const center_lng = (origin.lng + destination.lng) / 2
-        
-        
-        console.log(origin, destination)
-        
-        console.log(center_lat, center_lng)
-
-      const rightZoom = Math.floor(
-        Math.log2(
-          ((360 / Math.abs(origin.lng - destination.lng)) *
-            ((window.innerWidth / 640) * 256)) /
-            0.0001
-        )
-      )
+      const center_lng = (origin.lng + destination.lng) / 2
 
       const map = new Map(mapRef.current || document.createElement("div"), {
         center: { lat: center_lat, lng: center_lng },
         zoom: 8,
-
       })
 
       new Marker({

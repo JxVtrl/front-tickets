@@ -13,7 +13,7 @@ const Header: React.FC = () => {
   const pathname = usePathname()
   const router = useRouter()
 
-  if (pathname === "/login") return null;
+  if (pathname === "/login"||pathname === '/register') return null;
 
   return (
     <section className="header-sec">
