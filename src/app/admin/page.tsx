@@ -2,10 +2,13 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { usePathname,useRouter } from "next/navigation";
 
 export default function Admin () {
   const [selectedButton, setSelectedButton] = useState<string>("");
   const [routeId, setRouteId] = useState<string>("");
+  
+  const router = useRouter()
 
   const handleDeleteRoute = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,7 +18,7 @@ export default function Admin () {
         .delete(`http://localhost:3001/routes/delete-route/${routeId}`)
         .then(() => {
           alert("Rota deletada com sucesso");
-          window.location.href = "/admin";
+          router.push("/admin")
         });
     } catch (err) {
       console.log(err);
@@ -38,9 +41,7 @@ export default function Admin () {
     const verifyUserType = async () => {
       const userType = localStorage.getItem("userType");
       if (userType !== "admin") {
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 300);
+        router.push("/");
       }
     };
     verifyUserType();

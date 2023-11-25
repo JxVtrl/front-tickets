@@ -4,13 +4,16 @@ import "./header.css";
 import Link from "next/link";
 import { useApp } from "@/contexts/contextApi";
 import { HelpBox } from "@/components/HelpBox";
+import { usePathname, useRouter } from "next/navigation";
 
 const Header: React.FC = () => {
   const [showHelpBox, setShowHelpBox] = useState(false);
   const { user } = useApp();
+  
+  const pathname = usePathname()
+  const router = useRouter()
 
-  if (window.location.pathname === "/login") return null;
-
+  if (pathname === "/login") return null;
 
   return (
     <section className="header-sec">
@@ -63,7 +66,7 @@ const Header: React.FC = () => {
               onClick={() => {
                 localStorage.removeItem("user");
                 localStorage.removeItem("userType");
-                window.location.href = "/login";
+                router.push("/login");
               }}
             >
               Sair
@@ -72,7 +75,8 @@ const Header: React.FC = () => {
               <button
                 className="w-full bg-[#213a5c] hover:bg-[#213a5c]/90 rounded-md text-white font-bold py-2 px-4"
                 onClick={() => {
-                  window.location.href = "/admin";
+                router.push("/admin");
+                  
                 }}
               >
                 Painel de Admin

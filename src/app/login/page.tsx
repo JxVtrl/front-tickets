@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   email: string;
@@ -17,6 +18,8 @@ const Page: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+  
+  const router = useRouter()
 
   const onSubmit = async (data: FormData, e: any) => {
     e.preventDefault();
@@ -36,12 +39,12 @@ const Page: React.FC = () => {
       );
 
       if (response.data.user.role === "admin") {
-        window.location.href = "/admin";
+       router.push("/admin")
       }
 
       localStorage.setItem("user", JSON.stringify(response.data.user));
       localStorage.setItem("userType", response.data.user.role);
-      window.location.href = "/";
+     router.push("/")
       data.email = "";
       data.password = "";
     } catch (err) {
